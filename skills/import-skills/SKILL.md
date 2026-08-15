@@ -84,9 +84,14 @@ For each unexpired plan, call `import_skills` once with the corresponding
 `planId` and explicit per-skill decisions. Send each approved folder as one
 complete file list:
 
-- `utf8` for text;
-- `base64` for binary bytes;
+- `base64` for every file, including text, encoded directly from the same raw
+  bytes used to calculate the preview size and SHA-256 digest;
 - exactly the relative paths and bytes represented by the preview digest.
+
+Do not decode and re-encode text, normalize line endings, reserialize
+frontmatter, or construct file content from an earlier read. Re-read each file
+as raw bytes immediately before base64 encoding it. If those bytes no longer
+match the preview, create a new preview instead of submitting them.
 
 Never place file contents in shell commands or logs. The server verifies every
 digest, rechecks destination state, and creates one atomic Git commit per call.

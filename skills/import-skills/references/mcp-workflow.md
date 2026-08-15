@@ -37,8 +37,8 @@ the complete folder unless skipped:
   "files": [
     {
       "path": "SKILL.md",
-      "encoding": "utf8 | base64",
-      "content": "exact previewed bytes"
+      "encoding": "base64",
+      "content": "base64 of the exact previewed raw bytes"
     }
   ]
 }
@@ -59,7 +59,11 @@ default. Do not send skipped folder bytes.
 
 - Preserve relative paths using `/` separators.
 - Reject empty, absolute, drive-prefixed, `.`/`..`, NUL-containing, or escaping paths.
-- Prefer raw-byte or base64 fields exactly as required by the tool schema.
+- Base64-encode every file directly from raw bytes, including UTF-8 text. Do
+  not round-trip text through a string, normalize line endings, or rewrite
+  frontmatter between preview and import.
+- Re-read raw bytes immediately before encoding. If their size or SHA-256 no
+  longer matches the preview descriptor, create a new preview.
 - Never log payload bytes, auth headers, OAuth tokens, or signed URLs.
 - Only a result containing a Git commit SHA and imported paths establishes
   success for that batch.
