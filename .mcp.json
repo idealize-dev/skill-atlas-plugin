@@ -2,7 +2,7 @@
   "mcpServers": {
     "skills-atlas": {
       "type": "http",
-      "url": "https://skills-atlas.vercel.app/api/mcp"
+      "url": "https://atlas.idealize.com.au/api/mcp"
     }
   }
 }

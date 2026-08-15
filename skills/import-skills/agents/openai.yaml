@@ -8,4 +8,4 @@ dependencies:
       value: "skills-atlas"
       description: "Preview destinations and upload approved skill folders"
       transport: "streamable_http"
-      url: "https://skills-atlas.vercel.app/api/mcp"
+      url: "https://atlas.idealize.com.au/api/mcp"
