@@ -1,0 +1,15 @@
+{
+  "name": "skills-atlas-plugin",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Portable Claude and Codex plugin for importing local skills into Skills Atlas.",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "configure:endpoint": "node scripts/configure-endpoint.mjs",
+    "validate": "node scripts/validate.mjs"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

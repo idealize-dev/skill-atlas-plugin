@@ -1,0 +1,11 @@
+interface:
+  display_name: "Import skills"
+  short_description: "Review and import local skills"
+  default_prompt: "Discover my local Claude and Codex skills, then help me review and import them into Skills Atlas."
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "skills-atlas"
+      description: "Preview destinations and upload approved skill folders"
+      transport: "streamable_http"
+      url: "https://skills-atlas.vercel.app/api/mcp"

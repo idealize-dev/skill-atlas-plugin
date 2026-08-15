@@ -1,0 +1,24 @@
+{
+  "name": "skills-atlas",
+  "owner": {
+    "name": "Skills Atlas",
+    "url": "https://skills-atlas.vercel.app"
+  },
+  "description": "Portable Skills Atlas plugins.",
+  "plugins": [
+    {
+      "name": "skills-atlas",
+      "source": "./",
+      "description": "Safely review and import local Claude and Codex skills into Skills Atlas.",
+      "author": {
+        "name": "Skills Atlas"
+      },
+      "category": "development",
+      "tags": [
+        "skills",
+        "import",
+        "mcp"
+      ]
+    }
+  ]
+}

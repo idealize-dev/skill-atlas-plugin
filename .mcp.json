@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "skills-atlas": {
+      "type": "http",
+      "url": "https://skills-atlas.vercel.app/api/mcp"
+    }
+  }
+}

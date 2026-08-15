@@ -1,0 +1,20 @@
+{
+  "name": "skills-atlas",
+  "interface": {
+    "displayName": "Skills Atlas"
+  },
+  "plugins": [
+    {
+      "name": "skills-atlas",
+      "source": {
+        "source": "local",
+        "path": "./"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}
