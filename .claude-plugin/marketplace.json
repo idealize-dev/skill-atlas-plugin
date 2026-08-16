@@ -9,7 +9,7 @@
     {
       "name": "skills-atlas",
       "source": "./",
-      "description": "Safely review and import local Claude and Codex skills into Skills Atlas.",
+      "description": "Connect Skills Atlas MCP, import local skills, and install team plugins onto this machine.",
       "author": {
         "name": "Skills Atlas"
       },

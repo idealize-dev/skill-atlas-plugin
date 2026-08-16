@@ -1,5 +1,4 @@
 {
-  "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
   "name": "skills-atlas",
   "displayName": "Skills Atlas",
   "version": "0.2.0",
@@ -7,15 +6,15 @@
   "author": {
     "name": "Skills Atlas"
   },
-  "homepage": "https://skills-atlas.vercel.app",
+  "homepage": "https://atlas.idealize.com.au",
+  "repository": "https://github.com/idealize-dev/skill-atlas-plugin",
   "license": "MIT",
   "keywords": [
     "skills",
-    "claude",
-    "codex",
+    "cursor",
     "mcp",
     "import"
   ],
   "skills": "./skills/",
-  "mcpServers": "./.mcp.json"
+  "mcpServers": "./mcp.json"
 }

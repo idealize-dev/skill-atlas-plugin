@@ -68,6 +68,13 @@ default. Do not send skipped folder bytes.
 - Only a result containing a Git commit SHA and imported paths establishes
   success for that batch.
 
+## Team plugin install
+
+`list_installable_plugins` and `install_plugins` install Atlas team plugins
+onto the local machine. They are documented in
+`skills/install-plugins/references/mcp-workflow.md`. Do not use them during an
+import.
+
 ## Authentication
 
 Use the MCP client's OAuth flow when the server requests authentication. Never ask the user to paste a token into chat. Never place credentials in plugin files, candidate folders, manifests, previews, or logs.

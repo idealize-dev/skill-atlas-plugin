@@ -1,6 +1,6 @@
-# Skills Atlas plugin for Claude and Codex
+# Skills Atlas plugin for Claude, Cursor, and Codex
 
-A portable dual-format plugin that safely discovers local Claude Code and Codex skills, previews their destination through Skills Atlas MCP, obtains explicit conflict decisions, and uploads approved complete folders in bounded chunks.
+A portable plugin that safely discovers local Claude Code, Cursor, and Codex skills, previews their destination through Skills Atlas MCP, obtains explicit conflict decisions, and uploads approved complete folders in bounded batches.
 
 The same `skills/import-skills/` workflow is packaged for both hosts. Imported files are always treated as untrusted bytes and are never executed.
 
@@ -8,21 +8,20 @@ The same `skills/import-skills/` workflow is packaged for both hosts. Imported f
 
 - `.claude-plugin/plugin.json` and `.claude-plugin/marketplace.json` — Claude Code plugin and marketplace manifests.
 - `.codex-plugin/plugin.json` and `.agents/plugins/marketplace.json` — Codex plugin and repo marketplace manifests.
+- `.cursor-plugin/` and `mcp.json` — Cursor plugin, marketplace, and MCP metadata.
 - `skills/import-skills/` — shared skill plus security, path, MCP, and limit references.
 - `.mcp.json` — Claude remote MCP configuration.
 - `mcp/codex.json` — Codex remote MCP configuration.
 - `config/endpoint.json` — canonical endpoint value used to generate both MCP configurations and the Codex skill dependency.
 - `scripts/` — dependency-free endpoint synchronization and package validation.
 
-## Endpoint: replace before release
+## Production endpoint
 
 The package currently uses:
 
 ```text
-https://skills-atlas.vercel.app/api/mcp
+https://atlas.idealize.com.au/api/mcp
 ```
-
-This is the documented placeholder/default because a production MCP URL has not been independently confirmed. **Before a public release, confirm the production streamable-HTTP endpoint with the Skills Atlas operator and replace this value if necessary.**
 
 Update every generated consumer from the single canonical value:
 
@@ -50,9 +49,17 @@ claude plugin marketplace add /absolute/path/to/skill-atlas-plugin
 claude plugin install skills-atlas@skills-atlas
 ```
 
-Start a fresh session, run `/mcp` to verify `skills-atlas`, then ask Claude to import local skills or invoke `/skills-atlas:import-skills`.
+Start a fresh session, run `/mcp` to verify `skills-atlas`, then ask Claude to import local skills (`/skills-atlas:import-skills`) or install team plugins (`/skills-atlas:install-plugins`).
 
 Before distribution, host the complete Git repository and have users add the repository URL or `owner/repo`. Do not distribute only the marketplace JSON URL: relative plugin sources require the rest of the repository.
+
+### Cursor
+
+Add `https://github.com/idealize-dev/skill-atlas-plugin.git` as a plugin
+marketplace, install **Skills Atlas**, and start a new chat. Ask Cursor to list
+Skills Atlas import destinations; the first MCP request opens browser OAuth.
+Then ask it to use the Skills Atlas import skill to discover and import local
+skills.
 
 ### Codex / ChatGPT desktop
 

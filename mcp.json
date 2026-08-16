@@ -1,0 +1,7 @@
+{
+  "mcpServers": {
+    "skills-atlas": {
+      "url": "https://atlas.idealize.com.au/api/mcp"
+    }
+  }
+}

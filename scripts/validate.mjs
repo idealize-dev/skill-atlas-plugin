@@ -10,11 +10,16 @@ const required = [
   ".claude-plugin/marketplace.json",
   ".codex-plugin/plugin.json",
   ".agents/plugins/marketplace.json",
+  ".cursor-plugin/plugin.json",
+  ".cursor-plugin/marketplace.json",
   ".mcp.json",
+  "mcp.json",
   "mcp/codex.json",
   "config/endpoint.json",
   "skills/import-skills/SKILL.md",
   "skills/import-skills/agents/openai.yaml",
+  "skills/install-plugins/SKILL.md",
+  "skills/install-plugins/references/mcp-workflow.md",
 ];
 
 for (const relative of required) {
@@ -39,7 +44,10 @@ const claudeManifest = await json(".claude-plugin/plugin.json");
 const claudeMarketplace = await json(".claude-plugin/marketplace.json");
 const codexManifest = await json(".codex-plugin/plugin.json");
 const codexMarketplace = await json(".agents/plugins/marketplace.json");
+const cursorManifest = await json(".cursor-plugin/plugin.json");
+const cursorMarketplace = await json(".cursor-plugin/marketplace.json");
 const claudeMcp = await json(".mcp.json");
+const cursorMcp = await json("mcp.json");
 const codexMcp = await json("mcp/codex.json");
 
 let endpoint;
@@ -56,6 +64,7 @@ try {
 for (const [name, manifest] of [
   ["Claude", claudeManifest],
   ["Codex", codexManifest],
+  ["Cursor", cursorManifest],
 ]) {
   if (manifest.name !== "skills-atlas") errors.push(`${name} plugin name must be skills-atlas.`);
   if (!/^\d+\.\d+\.\d+$/.test(manifest.version ?? "")) {
@@ -70,11 +79,17 @@ if (claudeManifest.mcpServers !== "./.mcp.json") {
 if (codexManifest.mcpServers !== "./mcp/codex.json") {
   errors.push("Codex manifest must reference ./mcp/codex.json.");
 }
+if (cursorManifest.mcpServers !== "./mcp.json") {
+  errors.push("Cursor manifest must reference ./mcp.json.");
+}
 if (claudeMarketplace.plugins?.[0]?.source !== "./") {
   errors.push("Claude marketplace must source the repository-root plugin.");
 }
 if (codexMarketplace.plugins?.[0]?.source?.path !== "./") {
   errors.push("Codex marketplace must source the repository-root plugin.");
+}
+if (cursorMarketplace.plugins?.[0]?.source !== ".") {
+  errors.push("Cursor marketplace must source the repository-root plugin.");
 }
 
 const configuredEndpoint = endpointConfig.mcpEndpoint;
@@ -84,10 +99,20 @@ if (claudeMcp.mcpServers?.["skills-atlas"]?.url !== configuredEndpoint) {
 if (codexMcp["skills-atlas"]?.url !== configuredEndpoint) {
   errors.push("mcp/codex.json is out of sync; run npm run configure:endpoint.");
 }
+if (cursorMcp.mcpServers?.["skills-atlas"]?.url !== configuredEndpoint) {
+  errors.push("mcp.json is out of sync; run npm run configure:endpoint.");
+}
 
 const skill = await readFile(path.join(root, "skills/import-skills/SKILL.md"), "utf8");
 if (!skill.startsWith("---\n") || !/^name:\s+import-skills$/m.test(skill)) {
   errors.push("SKILL.md must have import-skills YAML frontmatter.");
+}
+const installSkill = await readFile(path.join(root, "skills/install-plugins/SKILL.md"), "utf8");
+if (!installSkill.startsWith("---\n") || !/^name:\s+install-plugins$/m.test(installSkill)) {
+  errors.push("install-plugins SKILL.md must have install-plugins YAML frontmatter.");
+}
+if (!installSkill.includes("list_installable_plugins") || !installSkill.includes("install_plugins")) {
+  errors.push("install-plugins SKILL.md must name the MCP install tools.");
 }
 for (const phrase of [
   "Never execute imported content",
@@ -112,6 +137,9 @@ const textFiles = [
   ".codex-plugin/plugin.json",
   ".claude-plugin/marketplace.json",
   ".agents/plugins/marketplace.json",
+  ".cursor-plugin/plugin.json",
+  ".cursor-plugin/marketplace.json",
+  "mcp.json",
 ];
 const credentialPattern =
   /("(?:api[_-]?key|access[_-]?token|client[_-]?secret|password)"\s*:\s*")(?!\s*")[^"]+/i;
@@ -124,6 +152,6 @@ if (errors.length) {
   console.error(errors.map((error) => `- ${error}`).join("\n"));
   process.exitCode = 1;
 } else {
-  console.log(`Validated ${required.length} required files and both plugin formats.`);
+  console.log(`Validated ${required.length} required files and all plugin formats.`);
   console.log(`Canonical MCP endpoint: ${endpoint?.href ?? configuredEndpoint}`);
 }

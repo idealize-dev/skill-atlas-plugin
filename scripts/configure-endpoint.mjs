@@ -41,9 +41,17 @@ const codexConfig = {
     url: mcpEndpoint,
   },
 };
+const cursorConfig = {
+  mcpServers: {
+    "skills-atlas": {
+      url: mcpEndpoint,
+    },
+  },
+};
 
 await Promise.all([
   writeFile(path.join(root, ".mcp.json"), `${JSON.stringify(claudeConfig, null, 2)}\n`),
+  writeFile(path.join(root, "mcp.json"), `${JSON.stringify(cursorConfig, null, 2)}\n`),
   writeFile(
     path.join(root, "mcp", "codex.json"),
     `${JSON.stringify(codexConfig, null, 2)}\n`,

@@ -1,0 +1,16 @@
+{
+  "name": "skills-atlas",
+  "owner": {
+    "name": "Skills Atlas"
+  },
+  "metadata": {
+    "description": "Import local Agent Skills into Skills Atlas."
+  },
+  "plugins": [
+    {
+      "name": "skills-atlas",
+      "source": ".",
+      "description": "Discover, review, and import local Agent Skills."
+    }
+  ]
+}
