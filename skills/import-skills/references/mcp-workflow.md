@@ -10,7 +10,7 @@ bundles, and limits. Never invent a destination ID.
 
 ## `plan_skill_import`
 
-Read-only with respect to GitHub. Creates a short-lived server plan from an
+Read-only with respect to the destination Git repository. Creates a short-lived server plan from an
 `orgSlug`, `bundleId`, and up to the advertised number of skill descriptors.
 Each descriptor contains:
 
